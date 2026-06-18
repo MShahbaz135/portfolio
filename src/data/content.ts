@@ -7,8 +7,8 @@ export const profile = {
   location: "Rawalpindi, Pakistan",
   email: "shahbazmuhammad135@gmail.com",
   phone: "+92 342 5503621",
-  linkedin: "https://linkedin.com/in/your-handle",
-  github: "https://github.com/your-handle",
+  linkedin: "https://www.linkedin.com/in/muhammad-shahbaz-827568167/",
+  github: "https://github.com/MShahbaz135",
   cvUrl: "/Muhammad_Shahbaz_CV.pdf",
   availableForWork: true,
 };
