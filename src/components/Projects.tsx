@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowUpRight, Check, Github } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Check, Github } from "lucide-react";
 import { projects } from "@/data/content";
 import Reveal from "./Reveal";
 
@@ -48,7 +49,14 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="mt-6 flex gap-4">
+                    <div className="mt-6 flex flex-wrap items-center gap-5">
+                      <Link
+                        href={`/work/${p.slug}`}
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold transition hover:gap-2.5"
+                        style={{ color: p.accent }}
+                      >
+                        Read case study <ArrowRight size={15} />
+                      </Link>
                       {p.liveUrl && (
                         <a
                           href={p.liveUrl}
