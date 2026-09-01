@@ -1,8 +1,7 @@
 import { ImageResponse } from "next/og";
-import { profile, stats } from "@/data/content";
+import { profile } from "@/data/content";
 
-export const runtime = "edge";
-export const alt = "Muhammad Shahbaz — Full Stack Engineer";
+export const alt = "Muhammad Shahbaz — Software Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -18,7 +17,7 @@ export default function OgImage() {
           justifyContent: "space-between",
           background: "#0B0E14",
           backgroundImage:
-            "radial-gradient(900px circle at 80% 0%, rgba(59,130,246,0.22), transparent 55%)",
+            "radial-gradient(900px circle at 20% 0%, rgba(59,130,246,0.22), transparent 55%)",
           padding: "72px",
           fontFamily: "sans-serif",
         }}
@@ -52,20 +51,13 @@ export default function OgImage() {
           <div style={{ color: "#60A5FA", fontSize: 40, fontWeight: 700, marginTop: 12 }}>
             {profile.role}
           </div>
-          <div style={{ color: "#8B949E", fontSize: 30, marginTop: 10 }}>
+          <div style={{ color: "#8B949E", fontSize: 30, marginTop: 10, maxWidth: 900 }}>
             {profile.tagline}
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 48 }}>
-          {stats.map((s) => (
-            <div key={s.label} style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ color: "#22D3EE", fontSize: 44, fontWeight: 800 }}>
-                {s.display}
-              </div>
-              <div style={{ color: "#8B949E", fontSize: 22 }}>{s.label}</div>
-            </div>
-          ))}
+        <div style={{ color: "#5B6573", fontSize: 22, letterSpacing: 1 }}>
+          Angular · React · Node.js · TypeScript
         </div>
       </div>
     ),

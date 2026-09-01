@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ThemeScript from "@/components/ThemeScript";
 import "./globals.css";
 
 const inter = Inter({
@@ -20,12 +21,12 @@ const siteUrl = "https://mshahbaz.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Muhammad Shahbaz — Full Stack Engineer",
+  title: "Muhammad Shahbaz — Software Engineer",
   description:
-    "Full Stack Engineer specializing in real-time, data-intensive web applications. Angular, React, Node.js, TypeScript.",
+    "Software Engineer turning complex systems into products people rely on. Angular, React, Node.js, TypeScript.",
   keywords: [
-    "Full Stack Engineer",
     "Software Engineer",
+    "Full Stack Engineer",
     "Angular",
     "React",
     "Node.js",
@@ -35,36 +36,33 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Muhammad Shahbaz" }],
   openGraph: {
-    title: "Muhammad Shahbaz — Full Stack Engineer",
+    title: "Muhammad Shahbaz — Software Engineer",
     description:
-      "Full Stack Engineer specializing in real-time, data-intensive web applications.",
+      "Software Engineer turning complex systems into products people rely on.",
     url: siteUrl,
     siteName: "Muhammad Shahbaz",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Shahbaz — Full Stack Engineer",
+    title: "Muhammad Shahbaz — Software Engineer",
     description:
-      "Full Stack Engineer specializing in real-time, data-intensive web applications.",
+      "Software Engineer turning complex systems into products people rely on.",
   },
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const themeInit = `(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.classList.remove('dark');}}catch(e){}})();`;
-
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
-      </head>
       <body className="font-sans antialiased">
+        <ThemeScript />
         {children}
         <Analytics />
         <SpeedInsights />

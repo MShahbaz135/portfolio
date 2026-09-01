@@ -1,6 +1,6 @@
 "use client";
 
-import { skills } from "@/data/content";
+import { profile, skills } from "@/data/content";
 import Reveal from "./Reveal";
 
 export default function About() {
@@ -12,11 +12,11 @@ export default function About() {
             <span className="h-px w-6 bg-accent-soft" /> About
           </span>
           <h2 className="section-title">
-            Engineer focused on real-time, data-heavy products
+            Engineer who turns complex systems into reliable products
           </h2>
           <div className="mt-5 space-y-4 text-ink-muted">
             <p>
-              I&apos;m a Full Stack Engineer with 5+ years building and scaling
+              I&apos;m a Software Engineer with {profile.yearsExperience} years building and scaling
               web applications for enterprise, government, and international
               clients. I specialize in turning complex problems into reliable,
               high-performance products.

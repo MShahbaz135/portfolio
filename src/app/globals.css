@@ -2,35 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light theme (default fallback) */
+/* Light theme (default) */
 :root {
+  color-scheme: light;
   --color-base: 248 250 252;
   --color-surface: 255 255 255;
   --color-card: 255 255 255;
   --color-border: 226 232 240;
   --color-accent: 37 99 235;
-  --color-accent-soft: 59 130 246;
+  --color-accent-soft: 29 78 216;
   --color-accent-glow: 29 78 216;
-  --color-cyan: 8 145 178;
+  --color-cyan: 14 116 144;
   --color-ink: 15 23 42;
-  --color-ink-muted: 71 85 105;
-  --color-ink-faint: 148 163 184;
+  --color-ink-muted: 51 65 85;
+  --color-ink-faint: 71 85 105;
   --grid-line: rgba(15, 23, 42, 0.04);
 }
 
 /* Dark theme */
 .dark {
+  color-scheme: dark;
   --color-base: 11 14 20;
   --color-surface: 15 20 28;
   --color-card: 20 27 38;
   --color-border: 30 39 51;
   --color-accent: 59 130 246;
-  --color-accent-soft: 96 165 250;
+  --color-accent-soft: 147 197 253;
   --color-accent-glow: 29 78 216;
   --color-cyan: 34 211 238;
-  --color-ink: 230 237 243;
-  --color-ink-muted: 139 148 158;
-  --color-ink-faint: 91 101 115;
+  --color-ink: 241 245 249;
+  --color-ink-muted: 203 213 225;
+  --color-ink-faint: 148 163 184;
   --grid-line: rgba(255, 255, 255, 0.03);
 }
 
@@ -108,7 +110,7 @@ body {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    600px circle at 75% 15%,
+    700px circle at 20% 10%,
     rgba(59, 130, 246, 0.12),
     transparent 60%
   );

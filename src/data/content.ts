@@ -1,9 +1,9 @@
 export const profile = {
   name: "Muhammad Shahbaz",
-  role: "Full Stack Engineer",
-  tagline: "Real-time & Data-Intensive Web Applications",
+  role: "Software Engineer",
+  tagline: "Turning complex systems into products people rely on",
   blurb:
-    "I build scalable, real-time systems that turn complex data into reliable, high-impact products.",
+    "I design and build web products for operations, finance, and government — owning the work from UI to APIs so complex systems stay reliable in production.",
   location: "Rawalpindi, Pakistan",
   email: "shahbazmuhammad135@gmail.com",
   phone: "+92 342 5503621",
@@ -11,14 +11,8 @@ export const profile = {
   github: "https://github.com/MShahbaz135",
   cvUrl: "/Muhammad_Shahbaz_CV.pdf",
   availableForWork: true,
+  yearsExperience: "6+",
 };
-
-export const stats = [
-  { value: 800000, suffix: "K+", display: "800K+", label: "Shipments", divisor: 1000 },
-  { value: 500, suffix: "M+", display: "500M+", label: "km Tracked", divisor: 1 },
-  { value: 80, suffix: "%", display: "80%", label: "Performance Gain", divisor: 1 },
-  { value: 5, suffix: "+", display: "5+", label: "Years Experience", divisor: 1 },
-];
 
 export type CaseStudyResult = { metric: string; label: string };
 
@@ -53,21 +47,22 @@ export const projects: Project[] = [
     description:
       "An enterprise logistics marketplace connecting shippers and carriers, with live GPS fleet tracking powered by Google Maps APIs, bidding workflows, and operational dashboards.",
     highlights: [
-      "Powered 800,000+ shipments and 5M+ tons of freight",
-      "500M+ km of real-time tracked travel",
+      "Nationwide load posting and competitive bidding",
+      "Live GPS fleet tracking with maps and ETAs",
       "Role-based access control & fleet/team management",
     ],
-    tech: ["Angular", "Node.js", "Express", "TypeScript", "PostgreSQL", "Google Maps API", "AWS"],
+    tech: ["Angular", "Node.js", "Express", "TypeScript", "MySQL", "Google Maps API", "AWS"],
     accent: "#3B82F6",
     caseStudy: {
       overview:
-        "A nationwide logistics marketplace that connects shippers with carriers — enabling load posting, competitive bidding, and live GPS tracking of freight across the country. The platform became the operational backbone for a large fleet network handling hundreds of thousands of shipments.",
+        "OpenPort is a logistics moving platform — a digital trucking marketplace and transport management system that takes freight from order dispatch through to consignee delivery. Shippers post loads to pre-approved transporters, who bid in real time; once a booking is confirmed, the same system tracks the truck, records an audit trail, and keeps shippers, carriers, dispatchers, and consignees aligned instead of coordinating over phone calls and spreadsheets.\n\nThe marketplace is built for transport procurement: licensed carriers, competitive bidding, booking management, and cost visibility. Alongside it, the TMS layer gives end-to-end supply-chain visibility — live GPS tracking, operational dashboards, and KPIs from dispatch to delivery, with electronic proof of delivery so consignees can follow order status and SKU-level progress.\n\nThe work in this case study sits at that core: nationwide load posting and bidding, real-time fleet tracking on maps, role-based portals for each stakeholder, and reporting for throughput, utilization, and on-time performance — on a stack of Angular, Node.js, Express, and MySQL.",
       problem:
         "Freight coordination relied on phone calls, spreadsheets, and manual check-ins. Shippers had no visibility into where their goods were, carriers struggled to find return loads, and operations teams couldn't measure performance. The business needed a single real-time system to digitize the entire freight lifecycle at national scale.",
       role:
-        "As a full-stack developer I owned major parts of the frontend (Angular) and backend (Node.js/Express) — building the bidding workflow, the real-time tracking layer with Google Maps APIs, role-based dashboards, and fleet/team management modules.",
+        "As a full-stack developer I owned major parts of the frontend (Angular) and backend (Node.js/Express with MySQL) — building the bidding workflow, the real-time tracking layer with Google Maps APIs, role-based dashboards, and fleet/team management modules.",
       approach: [
         "Designed a load-posting and bidding workflow so shippers post freight and carriers bid competitively in real time.",
+        "Stored loads, bids, GPS history, and fleet records in MySQL, indexed for live tracking queries and operational reporting.",
         "Built a live fleet-tracking layer using Google Maps APIs, streaming GPS positions and rendering routes, ETAs, and status on interactive maps.",
         "Implemented role-based access control (RBAC) so shippers, carriers, dispatchers, and admins each see a tailored, secure view.",
         "Created operational dashboards and reporting (Power BI) to surface throughput, utilization, and delivery performance.",
@@ -79,7 +74,7 @@ export const projects: Project[] = [
         { metric: "500M+", label: "km of tracked travel" },
       ],
       lessons:
-        "Real-time geospatial data at scale is as much a UX problem as an engineering one — batching position updates and virtualizing large lists mattered as much as the backend. Clear role boundaries (RBAC) early on kept the product secure and simple as it grew.",
+        "Real-time geospatial data at scale is as much a UX problem as an engineering one — batching position updates and virtualizing large lists mattered as much as the backend. MySQL, with the right indexes, kept tracking and reporting queries fast as volume grew. Clear role boundaries (RBAC) early on kept the product secure and simple as it grew.",
     },
   },
   {
@@ -168,7 +163,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: "Data & Real-time",
-    items: ["PostgreSQL", "MySQL", "MS SQL", "MongoDB", "Power BI", "AM4Charts", "Google Maps"],
+    items: ["MySQL", "PostgreSQL", "MS SQL", "MongoDB", "Power BI", "AM4Charts", "Google Maps"],
   },
   {
     group: "DevOps & Tools",

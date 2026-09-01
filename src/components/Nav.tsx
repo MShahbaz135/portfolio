@@ -27,11 +27,9 @@ export default function Nav() {
       <nav className="container-content flex h-16 items-center justify-between">
         <a
           href="#top"
-          className="font-mono text-sm font-semibold tracking-tight text-ink transition hover:text-accent"
+          className="text-sm font-semibold tracking-tight text-ink transition hover:text-accent"
         >
-          <span className="text-accent">{"<"}</span>
-          {profile.name.split(" ")[0]}
-          <span className="text-accent">{" />"}</span>
+          {profile.name}
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
