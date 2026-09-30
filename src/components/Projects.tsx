@@ -68,7 +68,7 @@ export default function Projects() {
                           rel="noreferrer"
                           className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-soft transition hover:text-ink"
                         >
-                          Live demo <ArrowUpRight size={15} />
+                          Visit site <ArrowUpRight size={15} />
                         </a>
                       )}
                       {p.githubUrl && (

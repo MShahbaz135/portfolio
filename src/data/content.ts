@@ -56,6 +56,7 @@ export const projects: Project[] = [
       "Role-based portals for shippers, carriers & dispatchers",
     ],
     tech: ["Angular", "Node.js", "Express", "TypeScript", "MySQL", "Google Maps API", "AWS"],
+    liveUrl: "https://openport.com/",
     accent: "#3B82F6",
     caseStudy: {
       overview:
@@ -136,6 +137,7 @@ export const projects: Project[] = [
       "Interactive dashboards built with AM4Charts",
     ],
     tech: ["Angular", "TypeScript", "AM4Charts", "Web Workers", "RxJS"],
+    liveUrl: "https://www.dashanalytix.com/",
     accent: "#22D3EE",
     caseStudy: {
       overview:
