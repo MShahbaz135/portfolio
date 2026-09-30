@@ -6,6 +6,13 @@ import { projects, profile } from "@/data/content";
 import ThemeToggle from "@/components/ThemeToggle";
 import Footer from "@/components/Footer";
 
+// Literal class names so Tailwind picks them up; a single metric stays card-sized.
+const resultCols: Record<number, string> = {
+  1: "sm:max-w-xs",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+};
+
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
@@ -63,7 +70,10 @@ export default async function CaseStudyPage({
             />
             Case Study
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-ink md:text-5xl">
+          <p className="mt-5 font-mono text-xs uppercase tracking-wider text-ink-faint">
+            {project.context}
+          </p>
+          <h1 className="mt-2 text-4xl font-bold leading-tight tracking-tight text-ink md:text-5xl">
             {project.name}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-ink-muted">{project.blurb}</p>
@@ -106,6 +116,7 @@ export default async function CaseStudyPage({
               { href: "#overview", label: "Overview" },
               { href: "#problem", label: "The problem" },
               { href: "#role", label: "My role" },
+              { href: "#approach", label: "Approach" },
               { href: "#learned", label: "What I learned" },
             ].map((item) => (
               <a
@@ -118,16 +129,18 @@ export default async function CaseStudyPage({
             ))}
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {cs.results.map((r) => (
-              <div key={r.label} className="card-glow bg-base-card p-5 text-center">
-                <div className="text-3xl font-bold tracking-tight text-accent">
-                  {r.metric}
+          {cs.results.length > 0 && (
+            <div className={`mt-10 grid grid-cols-1 gap-4 ${resultCols[cs.results.length] ?? "sm:grid-cols-3"}`}>
+              {cs.results.map((r) => (
+                <div key={r.label} className="card-glow bg-base-card p-5 text-center">
+                  <div className="text-3xl font-bold tracking-tight text-accent">
+                    {r.metric}
+                  </div>
+                  <div className="mt-1 text-sm text-ink-muted">{r.label}</div>
                 </div>
-                <div className="mt-1 text-sm text-ink-muted">{r.label}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           <div className="mt-12 space-y-12">
             <Section id="overview" title="Overview">

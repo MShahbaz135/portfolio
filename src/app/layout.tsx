@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ThemeScript from "@/components/ThemeScript";
+import { profile } from "@/data/content";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,14 +18,16 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://mshahbaz.dev";
+const siteUrl = profile.siteUrl;
+const siteTitle = `${profile.name} — ${profile.role}`;
+const siteDescription = `${profile.role} turning complex systems into products people rely on.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Muhammad Shahbaz — Software Engineer",
-  description:
-    "Software Engineer turning complex systems into products people rely on. Angular, React, Node.js, TypeScript.",
+  title: siteTitle,
+  description: `${siteDescription} Angular, React, Node.js, TypeScript.`,
   keywords: [
+    "Senior Software Engineer",
     "Software Engineer",
     "Full Stack Engineer",
     "Angular",
@@ -36,18 +39,16 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Muhammad Shahbaz" }],
   openGraph: {
-    title: "Muhammad Shahbaz — Software Engineer",
-    description:
-      "Software Engineer turning complex systems into products people rely on.",
+    title: siteTitle,
+    description: siteDescription,
     url: siteUrl,
     siteName: "Muhammad Shahbaz",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Shahbaz — Software Engineer",
-    description:
-      "Software Engineer turning complex systems into products people rely on.",
+    title: siteTitle,
+    description: siteDescription,
   },
 };
 

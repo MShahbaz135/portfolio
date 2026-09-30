@@ -1,49 +1,46 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Github } from "lucide-react";
-import { projects } from "@/data/content";
+import { ArrowUpRight, Check, Github } from "lucide-react";
+import { sideProjects } from "@/data/content";
 import Reveal from "./Reveal";
 
-export default function Projects() {
+export default function SideProjects() {
+  // One project spans the full width like the case-study cards; more sit side by side.
+  const single = sideProjects.length === 1;
+
   return (
-    <section id="work" className="border-t border-base-border py-20 md:py-28">
+    <section id="side-projects" className="border-t border-base-border py-20 md:py-28">
       <div className="container-content">
         <Reveal>
           <span className="section-label">
-            <span className="h-px w-6 bg-accent-soft" /> Selected Work
+            <span className="h-px w-6 bg-accent-soft" /> Side Projects
           </span>
-          <h2 className="section-title">Case studies, not just screenshots</h2>
+          <h2 className="section-title">Things I build and run on my own</h2>
           <p className="mt-3 max-w-xl text-ink-muted">
-            Real systems built for enterprise, government, and international
-            clients — plus an open-source side project you can read line by
-            line.
+            Live products I designed, built, and ship end to end outside of
+            client work.
           </p>
         </Reveal>
 
-        <div className="mt-12 flex flex-col gap-6">
-          {projects.map((p, i) => (
+        <div className={`mt-12 grid gap-6 ${single ? "" : "md:grid-cols-2"}`}>
+          {sideProjects.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.05}>
-              <article className="card-glow group relative overflow-hidden p-6 transition duration-300 hover:border-accent/50 md:p-8">
+              <article className="card-glow group relative h-full overflow-hidden p-6 transition duration-300 hover:border-accent/50 md:p-8">
                 <div
                   className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30"
                   style={{ background: p.accent }}
                 />
-                <div className="relative grid gap-6 md:grid-cols-[1.4fr_1fr]">
-                  <div>
-                    <p className="mb-2 font-mono text-xs uppercase tracking-wider text-ink-faint">
-                      {p.context}
-                    </p>
+                <div className={`relative grid gap-6 ${single ? "md:grid-cols-[1.2fr_1fr]" : ""}`}>
+                  <div className="flex flex-col">
                     <div className="flex items-center gap-3">
                       <span
                         className="h-2.5 w-2.5 rounded-full"
                         style={{ background: p.accent }}
                       />
-                      <h3 className="text-xl font-semibold text-ink md:text-2xl">
-                        {p.name}
-                      </h3>
+                      <h3 className="text-xl font-semibold text-ink md:text-2xl">{p.name}</h3>
                     </div>
-                    <p className="mt-3 text-ink-muted">{p.description}</p>
+                    <p className="mt-2 text-sm font-medium text-ink">{p.tagline}</p>
+                    <p className="mt-3 leading-relaxed text-ink-muted">{p.description}</p>
 
                     <div className="mt-5 flex flex-wrap gap-2">
                       {p.tech.map((t) => (
@@ -54,21 +51,15 @@ export default function Projects() {
                     </div>
 
                     <div className="mt-6 flex flex-wrap items-center gap-5">
-                      <Link
-                        href={`/work/${p.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold transition hover:gap-2.5"
-                        style={{ color: p.accent }}
-                      >
-                        Read case study <ArrowRight size={15} />
-                      </Link>
                       {p.liveUrl && (
                         <a
                           href={p.liveUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-soft transition hover:text-ink"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold transition hover:gap-2.5"
+                          style={{ color: p.accent }}
                         >
-                          Live demo <ArrowUpRight size={15} />
+                          Visit live site <ArrowUpRight size={15} />
                         </a>
                       )}
                       {p.githubUrl && (
