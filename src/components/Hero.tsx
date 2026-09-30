@@ -23,7 +23,7 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-emerald-400" />
             {profile.availableForWork
               ? "Available for new opportunities"
-              : "Senior Software Engineer"}
+              : profile.role}
           </span>
           <span className="inline-flex items-center rounded-full border border-base-border bg-base-card/60 px-3 py-1.5 font-mono text-xs text-ink-muted">
             {profile.yearsExperience} years experience

@@ -32,6 +32,12 @@ export default function Contact() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-ink-muted">
+              <a
+                href={`mailto:${profile.email}`}
+                className="inline-flex items-center gap-2 transition hover:text-ink"
+              >
+                <Mail size={15} className="text-accent" /> {profile.email}
+              </a>
               <span className="inline-flex items-center gap-2">
                 <MapPin size={15} className="text-accent" /> {profile.location}
               </span>

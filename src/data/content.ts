@@ -1,6 +1,6 @@
 export const profile = {
   name: "Muhammad Shahbaz",
-  role: "Software Engineer",
+  role: "Senior Software Engineer (Full Stack)",
   tagline: "Turning complex systems into products people rely on",
   blurb:
     "I design and build web products for operations, finance, and government — owning the work from UI to APIs so complex systems stay reliable in production.",
@@ -10,6 +10,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/muhammad-shahbaz-827568167/",
   github: "https://github.com/MShahbaz135",
   cvUrl: "/Muhammad_Shahbaz_CV.pdf",
+  siteUrl: "https://www.mshahbaz.dev",
   availableForWork: true,
   yearsExperience: "6+",
 };
@@ -28,6 +29,8 @@ export type CaseStudy = {
 export type Project = {
   slug: string;
   name: string;
+  /** Who the work was for, e.g. "OpenPort · built at LMKR". */
+  context: string;
   blurb: string;
   description: string;
   highlights: string[];
@@ -41,15 +44,16 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "logistics-fleet-tracking",
-    name: "Logistics Marketplace & Fleet Tracking",
+    name: "OpenPort Logistics Marketplace & Fleet Tracking",
+    context: "OpenPort · built at LMKR",
     blurb:
       "A nationwide freight platform for load posting, bidding, and real-time fleet tracking.",
     description:
       "An enterprise logistics marketplace connecting shippers and carriers, with live GPS fleet tracking powered by Google Maps APIs, bidding workflows, and operational dashboards.",
     highlights: [
-      "Nationwide load posting and competitive bidding",
-      "Live GPS fleet tracking with maps and ETAs",
-      "Role-based access control & fleet/team management",
+      "800K+ shipments and 5M+ tons of freight moved",
+      "500M+ km of live GPS-tracked travel",
+      "Role-based portals for shippers, carriers & dispatchers",
     ],
     tech: ["Angular", "Node.js", "Express", "TypeScript", "MySQL", "Google Maps API", "AWS"],
     accent: "#3B82F6",
@@ -78,8 +82,50 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "skytrace",
+    name: "SkyTrace — Live Flight Tracking",
+    context: "Open-source side project",
+    blurb:
+      "Live ADS-B flight tracking built around a hard API budget: one shared poller, WebSocket fan-out, and a canvas map that keeps moving between updates.",
+    description:
+      "A real-time flight tracker streaming live aircraft positions from the OpenSky Network to a custom Leaflet canvas map, with a NestJS backend engineered to serve every viewer from a single credit-aware poller.",
+    highlights: [
+      "One shared poller serves every viewer within a 4,000-credit/day API budget",
+      "Dead reckoning turns 10-second updates into smooth 60fps motion",
+      "Jest, Vitest & Playwright tests; replay fallback labelled as demo data",
+    ],
+    tech: ["React 19", "TypeScript", "NestJS", "Socket.IO", "Leaflet", "PostgreSQL", "Vite"],
+    githubUrl: "https://github.com/MShahbaz135/skytrace",
+    accent: "#F59E0B",
+    caseStudy: {
+      overview:
+        "SkyTrace is a live flight-tracking web app: a landing page, a full-screen live map, and per-aircraft detail pages. Positions come from the OpenSky Network's ADS-B feed, stream to the browser over Socket.IO, and render on a custom Leaflet canvas layer. Aircraft type, airline, and typical route arrive a moment later from adsbdb and are cached in PostgreSQL.\n\nIt is a non-commercial portfolio project, and the full source, tests, and architecture notes are public on GitHub.",
+      problem:
+        "A registered OpenSky account gets 4,000 API credits per day. A global query costs 4 credits, and the data only refreshes every 5–10 seconds — so polling globally every 10 seconds would burn the daily budget in under three hours, and one request per browser tab would burn it far faster. The challenge was to make a map that feels live for any number of viewers without exceeding that budget.",
+      role:
+        "Sole developer — architecture, NestJS backend and WebSocket gateway, React frontend and canvas rendering, shared TypeScript contracts, and the test suite.",
+      approach: [
+        "One TrackingService poller for every connected client, instead of one upstream request per browser tab.",
+        "Viewport-derived bounding boxes, merged when the union costs no more than separate queries, and capped per poll cycle.",
+        "Poll interval widens automatically as the remaining credit balance falls, and polling stops entirely when nobody is watching.",
+        "Clients receive a snapshot and then deltas over Socket.IO; client-side dead reckoning interpolates between updates for 60fps motion.",
+        "Custom Leaflet canvas layer with rotated sprites, viewport culling, zoom level-of-detail, and spatial-grid hit-testing.",
+        "Rate-limited enrichment queue for aircraft and route data that never blocks the position stream.",
+        "Replay fallback loops a recorded fixture when the feed is down — and the UI labels it as demo data, never as live.",
+      ],
+      results: [
+        { metric: "1", label: "Shared poller for every viewer" },
+        { metric: "10s → 60fps", label: "Dead-reckoned motion" },
+        { metric: "4,000", label: "Credits/day budget respected" },
+      ],
+      lessons:
+        "Treating the API budget as the core design constraint shaped the whole architecture — shared polling, coalesced queries, and idle shutdown came directly from it. Being honest in the UI about what the data can and can't tell you (typical routes, demo data) builds more trust than pretending to know more.",
+    },
+  },
+  {
     slug: "financial-forecasting-platform",
     name: "Financial Forecasting Platform",
+    context: "New Effect, London · part-time remote",
     blurb:
       "Core forecasting modules and high-performance calculation engines for a UK fintech.",
     description:
@@ -107,67 +153,129 @@ export const projects: Project[] = [
       ],
       results: [
         { metric: "80%", label: "Performance improvement" },
-        { metric: "Fewer", label: "Forecasting errors" },
-        { metric: "Smooth", label: "Data-intensive dashboards" },
       ],
       lessons:
         "Offloading computation to Web Workers and being deliberate about what renders (virtualization, memoization) can transform a sluggish data app into a snappy one — often a bigger win than backend tuning. In fintech, validation and edge-case handling are features, not afterthoughts.",
     },
   },
   {
-    slug: "govtech-revenue-property",
-    name: "GovTech Revenue & Property Systems",
+    slug: "plra-land-records",
+    name: "PLRA Land Records Platform — Auth & Admin",
+    context: "Punjab Land Records Authority · built at LMKR",
     blurb:
-      "Secure, role-based government platforms for tax revenue and property transfers.",
+      "The central authentication service and admin portal securing every module of Punjab's microservice land-records platform.",
     description:
-      "Built secure workflows for government initiatives including a property-transfer system (PLRA) and a tax-revenue collection platform with offline-capable desktop support.",
+      "Punjab's land-records platform — property transfers, systematic registration, green certificates, and digitization of remaining mauzas — built as microservices by a 20+ person team. I owned the auth service and admin portal every module relies on.",
     highlights: [
-      "Secure RBAC workflows with full auditability",
-      "Offline-capable desktop app (ElectronJS + SQLite3)",
-      "Firebase Storage & Cloud Messaging notifications",
+      "Central auth service securing every microservice over gRPC",
+      "RBAC for patwaris, tehsildars, ROs, RPOs, registrars & admins",
+      "OTP via SMS & email; admin portal for users, roles & permissions",
     ],
-    tech: ["Angular", "Node.js", "Firebase", "ElectronJS", "SQLite3", "MS SQL"],
+    tech: ["Angular", "TypeScript", "Node.js", "Express", "PostgreSQL", "gRPC"],
     accent: "#10B981",
     caseStudy: {
       overview:
-        "A set of government digitization initiatives: a property-transfer system for a land authority (PLRA) and a tax-revenue collection platform. Both demanded strict security, auditability, and reliability in environments with inconsistent connectivity.",
+        "The Punjab Land Records Authority (PLRA) platform digitizes land administration end to end. A citizen applies for a property transfer, a patwari verifies it, a registrar approves it, and the land record updates. Around that core sit green certificate issuance, systematic registration of urban, peri-urban, and rural properties, digitization of the remaining mauzas, and incorporation of existing urban records into the Land Records Management Information System (LRMIS).\n\nThe platform is a set of microservices — Angular, Node.js, .NET, PostgreSQL, and gRPC, with NADRA biometric verification — each owned by its own team, with roughly 15–20 developers plus QA, DevOps, a business analyst, and a project manager.",
       problem:
-        "Government workflows involve sensitive records, strict access rules, and field staff who can't always rely on a stable internet connection. Paper-based and online-only systems left gaps in security, accountability, and availability.",
+        "Every module — transfers, registration, certificates, digitization — needs the same two answers: who is this user, and what are they allowed to do? In a land-records system, getting that wrong means unauthorized changes to property ownership. With many microservices built by separate teams, authentication and permissions had to be centralized, strict, and easy for every team to integrate with.",
       role:
-        "I built secure, role-based workflows across the stack (Angular + Node.js), and developed an offline-capable desktop application so field operations could continue without connectivity.",
+        "I owned the central authentication service and the admin portal. On the backend (Node.js, Express, PostgreSQL), I built login, roles, permissions, and designations for every module, exposed to other services over gRPC. On the frontend (Angular), I built the admin portal for user management, role management, and RBAC. I also integrated OTP delivery over SMS and email.",
       approach: [
-        "Implemented role-based access control (RBAC) with auditable, secure workflows for sensitive records.",
-        "Built an offline-capable desktop app with ElectronJS + SQLite3, syncing data when connectivity returned.",
-        "Integrated Firebase Storage and Cloud Messaging for document handling and real-time notifications.",
-        "Designed approval/transfer workflows that enforce the correct steps and permissions at each stage.",
+        "Built one auth service that handles login, roles, permissions, and designations for every module, so no team re-implemented security on its own.",
+        "Exposed authentication and permission checks to the other microservices over gRPC, giving every team a single, typed contract to integrate against.",
+        "Modelled RBAC on real official roles — patwari, tehsildar, returning officer (RO), RPO, registrar, and admin — so each official can act only at their stage of the fixed approval sequence.",
+        "Built the Angular admin portal for managing users, roles, designations, and permissions.",
+        "Integrated OTP verification over SMS and email into the login flow.",
+        "Coordinated the auth contract with the team behind each microservice, resolving integration conflicts as services evolved.",
       ],
       results: [
-        { metric: "Secure", label: "Auditable RBAC workflows" },
-        { metric: "Offline", label: "Field-ready desktop app" },
-        { metric: "Real-time", label: "Notifications & sync" },
+        { metric: "6+", label: "Official roles under one RBAC model" },
+        { metric: "15–20", label: "Developers across teams relying on one auth service" },
       ],
       lessons:
-        "Designing for offline-first and least-privilege access from day one is far easier than retrofitting it. In GovTech, traceability and predictable workflows build the trust that makes adoption possible.",
+        "In a large microservice system, the auth service is a product for other engineers — a clear gRPC contract and early, frequent communication with every team mattered as much as the security logic itself. Centralizing permissions kept security rules in one place instead of drifting across many services.",
     },
+  },
+  {
+    slug: "kpk-revenue-collection",
+    name: "KPK Tax-Revenue Collection System",
+    context: "KPK Government · built at TeleTaleem",
+    blurb:
+      "A government tax-revenue collection platform with an offline-capable desktop app for unreliable connectivity.",
+    description:
+      "Features for a Khyber Pakhtunkhwa government tax-revenue collection system, including an offline-capable ElectronJS desktop app that keeps working without internet and syncs when connectivity returns.",
+    highlights: [
+      "Offline-capable desktop app (ElectronJS + SQLite3)",
+      "Local data syncs back when connectivity returns",
+      "RBAC, Firebase Storage & Cloud Messaging notifications",
+    ],
+    tech: ["Angular", "Node.js", "ElectronJS", "SQLite3", "Firebase"],
+    accent: "#8B5CF6",
+    caseStudy: {
+      overview:
+        "A tax-revenue collection system for the Khyber Pakhtunkhwa (KPK) government, digitizing collection workflows that previously depended on paper and on a stable internet connection. Alongside the web platform, it includes a desktop application that keeps working offline.",
+      problem:
+        "Revenue collection happens in offices and in the field, where connectivity is unreliable. An online-only system would stop work whenever the connection dropped, while paper records left gaps in accountability. The system needed to keep collecting reliably and securely either way.",
+      role:
+        "As a full-stack developer (Angular + Node.js), I built collection features, role-based access control, and Firebase integrations, and developed the offline-capable desktop application.",
+      approach: [
+        "Built an offline-capable desktop app with ElectronJS + SQLite3 that stores work locally and syncs when connectivity returns.",
+        "Implemented role-based access control (RBAC) so each user sees and acts on only what their role allows.",
+        "Integrated Firebase Storage for documents and Firebase Cloud Messaging for real-time notifications.",
+        "Built collection-workflow features in the Angular web platform backed by Node.js APIs.",
+      ],
+      results: [],
+      lessons:
+        "Designing for offline-first from day one is far easier than retrofitting it — local storage and sync shape the data model, not just the UI. In GovTech, predictable, traceable workflows build the trust that makes adoption possible.",
+    },
+  },
+];
+
+export type SideProject = {
+  name: string;
+  tagline: string;
+  description: string;
+  highlights: string[];
+  tech: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  accent: string;
+};
+
+export const sideProjects: SideProject[] = [
+  {
+    name: "allesferien.de",
+    tagline: "School holidays, public holidays & bridge-day planner for Germany",
+    description:
+      "A live German-language site covering school and public holidays for all 16 federal states, with a bridge-day calculator and subscribable calendar feeds. Fully static — no server, no database, no cookies.",
+    highlights: [
+      "200+ pages and 48 .ics calendar feeds generated at build time from a single data source",
+      "Bridge-day planner solves a 0/1 knapsack with merge correction to maximise days off for a given leave budget",
+      "41 Vitest tests pin down messy holiday data — local-only holidays, duplicate entries, UTC date math, exclusive ICS end dates",
+      "Builds never touch the network: checked-in API snapshots mean an outage can't block a deploy; GitHub Actions ships over FTPS",
+    ],
+    tech: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "Vitest", "OpenHolidays API", "GitHub Actions"],
+    liveUrl: "https://allesferien.de",
+    accent: "#EF4444",
   },
 ];
 
 export const skills: { group: string; items: string[] }[] = [
   {
     group: "Frontend",
-    items: ["Angular", "React", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Tailwind"],
+    items: ["Angular", "React", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Tailwind", "Ionic", "ElectronJS"],
   },
   {
     group: "Backend",
-    items: ["Node.js", "Express.js", "REST APIs", "Socket.io"],
+    items: ["Node.js", "NestJS", "Express.js", "REST APIs", "Socket.IO", "Firebase"],
   },
   {
     group: "Data & Real-time",
-    items: ["MySQL", "PostgreSQL", "MS SQL", "MongoDB", "Power BI", "AM4Charts", "Google Maps"],
+    items: ["MySQL", "PostgreSQL", "MS SQL", "MongoDB", "SQLite", "Power BI", "AM4Charts", "Google Maps", "Leaflet"],
   },
   {
-    group: "DevOps & Tools",
-    items: ["Git", "Docker", "AWS", "CI/CD", "Jira", "Agile/Scrum"],
+    group: "Testing & Tools",
+    items: ["Jest", "Vitest", "Playwright", "Git", "Docker", "AWS", "CI/CD", "Jira", "Agile/Scrum"],
   },
 ];
 
@@ -186,15 +294,16 @@ export const experience: Experience[] = [
     meta: "Islamabad, Pakistan",
     period: "May 2022 – Present",
     points: [
-      "Built a logistics marketplace with real-time fleet tracking — powering 800K+ shipments, 5M+ tons of freight, and 500M+ km of tracked travel.",
+      "Built OpenPort's logistics marketplace with real-time fleet tracking — powering 800K+ shipments, 5M+ tons of freight, and 500M+ km of tracked travel.",
       "Developed management portals with RBAC and fleet/team management.",
-      "Delivered secure property-transfer workflows for the PLRA government system.",
+      "Mentored junior developers on Angular, Node.js, and team coding practices.",
+      "Built the central auth service (gRPC) and admin portal securing every module of Punjab's PLRA land-records platform — logins, OTP, roles, and permissions.",
     ],
   },
   {
     role: "Frontend Developer",
     company: "New Effect",
-    meta: "London, UK · Remote",
+    meta: "London, UK · Remote · Part-time",
     period: "Aug 2023 – Present",
     points: [
       "Built core forecasting modules and optimized calculation engines, improving performance by 80%.",
@@ -208,7 +317,7 @@ export const experience: Experience[] = [
     meta: "Islamabad, Pakistan",
     period: "Sep 2021 – May 2022",
     points: [
-      "Contributed to a KPK government revenue-collection system.",
+      "Built features for a KPK government tax-revenue collection system.",
       "Implemented RBAC, Firebase Storage, and Cloud Messaging notifications.",
       "Built an offline-capable desktop app with ElectronJS + SQLite3.",
     ],

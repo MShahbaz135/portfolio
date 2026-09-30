@@ -16,7 +16,7 @@ export default function About() {
           </h2>
           <div className="mt-5 space-y-4 text-ink-muted">
             <p>
-              I&apos;m a Software Engineer with {profile.yearsExperience} years building and scaling
+              I&apos;m a Senior Software Engineer with {profile.yearsExperience} years building and scaling
               web applications for enterprise, government, and international
               clients. I specialize in turning complex problems into reliable,
               high-performance products.
