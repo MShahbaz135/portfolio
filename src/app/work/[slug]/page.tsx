@@ -95,7 +95,7 @@ export default async function CaseStudyPage({
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition hover:text-accent-soft"
                 >
-                  Live demo <ArrowUpRight size={15} />
+                  Visit site <ArrowUpRight size={15} />
                 </a>
               )}
               {project.githubUrl && (
